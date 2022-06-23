@@ -16,7 +16,7 @@
     "build": "concurrently npm:build:*",
     "build:webpack": "webpack --mode=production",
     "build:types": "tsc",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack --mode=production"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
