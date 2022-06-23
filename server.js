@@ -2,24 +2,24 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 
-//Cors Configuration - Start
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested, Content-Type, Accept Authorization"
-  )
-  if (req.method === "OPTIONS") {
-    res.header(
-      "Access-Control-Allow-Methods",
-      "POST, PUT, PATCH, GET, DELETE"
-    )
-    return res.status(200).json({})
-  }
-  next()
-})
-//Cors Configuration - End
+const whitelist = ['https://cn*'];
 
+const corsOptions = {
+  origin: function (origin, callback) {
+      if (!origin) {
+          return callback(null, true);
+      }
+
+      if (whitelist.indexOf(origin) === -1) {
+          var msg = 'The CORS policy for this site does not ' +
+              'allow access from the specified Origin.';
+          return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+  }
+}
+
+use(cors(corsOptions));
 
 express()
   .use(express.static(path.join(__dirname, "dist")))
