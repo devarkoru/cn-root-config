@@ -1,14 +1,21 @@
 {
   "name": "@cn/root-config",
+  "description": "a really cool app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "14.17.5",
+    "npm": "6.14.14"
+  },
   "scripts": {
-    "start": "webpack serve --port 9000 --env isLocal",
+    "start": "node server.js",
     "lint": "eslint src --ext js,ts,tsx",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "build": "concurrently npm:build:*",
     "build:webpack": "webpack --mode=production",
-    "build:types": "tsc"
+    "build:types": "tsc",
+    "heroku-postbuild": "ng build root-config --configuration production"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -41,8 +48,9 @@
   "dependencies": {
     "@types/jest": "^27.0.1",
     "@types/systemjs": "^6.1.1",
-    "single-spa": "^5.9.3",
-    "@types/webpack-env": "^1.16.2"
+    "@types/webpack-env": "^1.16.2",
+    "express": "^4.18.1",
+    "single-spa": "^5.9.3"
   },
   "types": "dist/cn-root-config.d.ts"
 }
